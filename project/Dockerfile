@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTHECODE 1
 ENV PYTHONBUFFERED 1
 
 RUN apt-get update \
-    && apt-get -y install netcat gcc \
+    && apt-get -y install netcat gcc postgresql \
     && apt-get clean
 
 RUN pip install -U pip
@@ -16,3 +16,8 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev
 
 COPY . .
+
+# COPY ./entrypoint.sh .
+# RUN chmod +x /usr/src/app/entrypoint.sh
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
